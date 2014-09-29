@@ -1,0 +1,25 @@
+<?php
+$title = 'Контакты';
+$this->headTitle($title);
+?>
+<div class="content row main contact">
+    <?php echo $this->aside; ?>
+    <section class="col col-lg-9">
+        <div class="main-content holder">
+            <?php echo $this->content ?>
+            <div class="form center-block">
+                <?php
+                $form = $this->form;
+                $form->setAttribute('action', $this->url('contacts'));
+                $form->prepare();
+
+                echo $this->form()->openTag($form);
+                echo $this->formRow($form->get('subject')),
+                $this->formRow($form->get('text')),
+                $this->formSubmit($form->get('submit'));
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,10 @@
+<div class="content row background">
+    <form action="<?php echo $this->url('edit', array('action' => 'edit', 'id' => $this->id)); ?>" method="POST">
+        <input name="id" type="hidden" value="<?php echo $this->id; ?>">
+        <label>Заголовок <input type="text" name="title" value="<?php echo $this->title; ?>" required="required"></label>
+        <textarea name="editor" id="editor"><?php echo $this->text; ?>
+        </textarea>
+        <input type="submit" value="Сохранить">
+    </form>
+    <script>CKEDITOR.replace('editor');</script>
+</div>

@@ -1,0 +1,18 @@
+<div class="content row background">
+    <div class="holder">
+        <h3 class="text-center">Управление сайтом</h3>
+        <ul class="nav nav-pills">
+            <li><a href="<?php echo $this->url('upload');?>">Загрузить изображение</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Управление содержимым <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <?php foreach ($this->content as $value) : ?>
+                    <li><a tabindex="-1" href="<?php echo $this->url('edit', array('action' => 'edit', 'id' => $value->getId()));?>"><?php echo $value->getTitle(); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

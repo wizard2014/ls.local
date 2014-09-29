@@ -1,0 +1,63 @@
+<aside class="col col-lg-3">
+    <!-- ANK -->
+    <div class="block holder">
+        <div class="background-gradient inner-block holder">
+            <h3 class=" text-center">Приказы АНК</h3>
+            <div class="inner-white-line"></div>
+        </div>
+        <div class="ank-content">
+            <ul class="list-unstyled">
+            <?php
+            $limit = 10;
+
+            for ($i = 0; $i < $limit; $i++) {
+                echo '<li><h4 class="text-center"><small>' .  $this->docs[$i]->getDate()->format('d.m.Y')
+                    . ' </small> - <a href="http://cetatenie.just.ro'. $this->docs[$i]->getLink()
+                    .'" target="_blank">Приказ ' . $this->docs[$i]->getTitle() . '</a></h4></li>';
+            }
+            ?>
+            </ul>
+            <p class="text-right all-orders">
+                <a href="<?php echo $this->url('order') ?>">Все приказы
+                    <i class="glyphicon glyphicon-share-alt"></i>
+                </a>
+            </p>
+        </div>
+    </div>
+    <!-- /ANK -->
+    <!-- Docs -->
+    <div class="block holder">
+        <div class="background-gradient inner-block holder">
+            <h3 class=" text-center">Образцы документов</h3>
+            <div class="inner-white-line"></div>
+        </div>
+        <div class="docs-content">
+            <?php
+            foreach ($this->imgs as $img) {
+                echo '<p><a href="' . $img . '" data-lightbox="imgs"><img class="img-responsive" src="' . $img . '" alt=""></a></p>';
+            }
+            ?>
+        </div>
+    </div>
+    <!-- /Docs -->
+    <!-- Video -->
+    <div class="block holder">
+        <div class="background-gradient inner-block holder">
+            <h3 class=" text-center">Видео</h3>
+            <div class="inner-white-line"></div>
+        </div>
+        <div class="vids-content">
+            <a class="fancyboxPlay fancybox.iframe" href="https://www.youtube.com/embed/kJfwqsw4CmQ?autoplay=1">
+                <img src="/img/poster/poster1.png" class="img-responsive" title="Гражданство румынии" alt="Гражданство румынии">
+            </a>
+            <a class="fancyboxPlay fancybox.iframe" href="https://www.youtube.com/embed/Gg1CXUhoVjI?autoplay=1">
+                <img src="/img/poster/poster2.png" class="img-responsive" title="Румыния наводнила Евросоюз молдаванами" alt="Румыния наводнила Евросоюз молдаванами">
+            </a>
+            <a class="fancyboxPlay fancybox.iframe" href="https://www.youtube.com/embed/HvL-cNAA6cU?autoplay=1">
+                <img src="/img/poster/poster3.png" class="img-responsive" title="Процесс прохождения присяги на верность Румынии" alt="Процесс прохождения присяги на верность Румынии">
+            </a>
+        </div>
+        <script src="https://www.youtube.com/iframe_api"></script>
+    </div>
+    <!-- /Video -->
+</aside>

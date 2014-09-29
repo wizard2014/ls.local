@@ -1,0 +1,50 @@
+<?php
+$title = 'Приказы';
+$this->headTitle($title);
+?>
+<div class="content row main">
+    <?php echo $this->aside; ?>
+    <section class="col col-lg-9">
+        <div class="main-content holder">
+        <?php
+        $years = array();
+
+        foreach ($this->fullDocsList as $doc) {
+            $explode = explode('.', $doc['date']);
+
+            $years[] = $explode[count($explode) - 1];
+        }
+
+        $years = array_values(array_unique($years));
+
+        for ($i = 0, $count = count($years); $i < $count; $i++) {
+            echo '<h4>'  . $years[$i] . ' год</h4>';
+            echo '<ul class="orders">';
+
+            foreach ($this->fullDocsList as $listItem) {
+                $explode = explode('.', $listItem['date']);
+                $curYear = $explode[count($explode) - 1];
+
+                if ($years[$i] === $curYear) {
+                    echo '<li><p><strong><small>';
+
+                    $a = $listItem['date'] . '</small></strong> - Приказ';
+
+                    foreach ($listItem['link'] as $link) {
+                        $part = explode('|', $link);
+
+                        $a .= '<a href="http://cetatenie.just.ro' . $part[0] . '" target="_blank"> '  . $part[1];
+                    }
+
+                    echo $a;
+
+                    echo '</a></p></li>';
+                }
+            }
+
+            echo '</ul>';
+        }
+        ?>
+        </div>
+    </section>
+</div>
