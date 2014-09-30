@@ -11,7 +11,7 @@
     ?>
 
     <!-- Le styles -->
-    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/misc/favicon.ico'))
         ->prependStylesheet($this->basePath() . '/css/admin/admin.min.css')
         ->prependStylesheet($this->basePath() . '/css/style.min.css')
         ->prependStylesheet($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') ?>
@@ -19,8 +19,6 @@
     <!-- Scripts -->
     <?php echo $this->headScript()
         ->prependFile($this->basePath() . '/js/script.min.js')
-        ->prependFile($this->basePath() . '/ckeditor/ckeditor.js')
-        ->prependFile($this->basePath() . '/js/jquery.pin.min.js')
         ->prependFile($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
         ->prependFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
         ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
@@ -74,5 +72,6 @@
         </footer>
     </div>
 </div> <!-- /container -->
+<script src="/js/jquery.pin.min.js"></script>
 </body>
 </html>

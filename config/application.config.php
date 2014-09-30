@@ -16,6 +16,7 @@ return array(
         'ZfcUser',
         'ZfcUserDoctrineORM',
         'BjyAuthorize',
+//        'EdpSuperluminal',
         'User'
     ),
     'module_listener_options' => array(
