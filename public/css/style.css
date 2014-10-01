@@ -96,7 +96,7 @@ footer
 }
 
 #footer p {
-    color: #F00723;
+    color: #07307f;
     font-weight: bold;
     text-shadow: #fff 1px 0 0, #fff 0 1px 0, #fff -1px 0 0, #fff 0 -1px 0;
     transition: color 2s;
@@ -161,6 +161,11 @@ contacts
     font-size: 20px;
     font-weight: bold;
     text-shadow: #fff 1px 0 0, #fff 0 1px 0, #fff -1px 0 0, #fff 0 -1px 0;
+}
+
+.viber {
+    padding-left: 24px;
+    background: url("../img/misc/viber.png") no-repeat center left;
 }
 
 @media (max-width: 980px) {
