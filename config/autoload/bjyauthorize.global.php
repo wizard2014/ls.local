@@ -23,6 +23,11 @@ return array(
                     'action'     => array('index', 'about-us', 'paperwork', 'about-romania', 'attention', 'contacts', 'reviews', 'aside', 'order'),
                     'roles'      => array(),
                 ),
+                array(
+                    'controller' => 'Application\Controller\Cron',
+                    'action'     => array('index'),
+                    'roles'      => array(),
+                ),
                 // конец раздела 1
 
                 // Раздел 2

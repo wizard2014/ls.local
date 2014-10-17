@@ -56,7 +56,7 @@ class EditController extends AbstractActionController
                 ->where('c.id = ?4')
                 ->setParameter(1, $user)
                 ->setParameter(2, $postData->title)
-                ->setParameter(3, htmlentities($postData->editor))
+                ->setParameter(3, htmlentities($postData->editor, ENT_COMPAT | ENT_HTML5, 'UTF-8'))
                 ->setParameter(4, $postData->id)
                 ->getQuery();
             $qu->execute();

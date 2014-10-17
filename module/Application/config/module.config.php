@@ -178,7 +178,7 @@ return array(
             'Application\Controller\Cron' => function($sm) {
                     $controller = new Application\Controller\CronController();
 
-                    $cache = $sm->getServiceLocator()->get('memory');
+                    $cache = $sm->getServiceLocator()->get('filesystem');
                     $controller->setCache($cache);
 
                     return $controller;
