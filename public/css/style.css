@@ -14,7 +14,7 @@ html {
 body {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 16px;
-    background-color: #5760EE;
+    background: #5760EE url("../img/misc/bg/bg.jpg") no-repeat;
 }
 
 .background {
@@ -286,6 +286,10 @@ menu
 @media (max-width: 1170px) {
     .menu-gradient {
         display: none;
+    }
+
+    .content > section.col:first-child {
+        padding-top: 23px;
     }
 }
 

@@ -3,8 +3,7 @@ $title = 'Контакты';
 $this->headTitle($title);
 ?>
 <div class="content row main contact">
-    <?php echo $this->aside; ?>
-    <section class="col col-lg-9">
+    <section class="col col-md-9 col-md-push-3">
         <div class="main-content holder">
             <?php echo $this->content ?>
             <div class="form center-block">
@@ -22,4 +21,5 @@ $this->headTitle($title);
             </div>
         </div>
     </section>
+    <?php echo $this->aside; ?>
 </div>

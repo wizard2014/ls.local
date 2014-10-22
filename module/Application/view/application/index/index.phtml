@@ -2,9 +2,8 @@
 $title = 'Главная';
 $this->headTitle($title);
 ?>
-<div class="content row main">
-    <?php echo $this->aside; ?>
-    <section class="col col-lg-9">
+<div class="content row main home-page">
+    <section class="col col-md-9 col-md-push-3">
         <div class="flash-messager">
             <?php if (count($this->flashMessages)) : ?>
                 <ul class="list-unstyled">
@@ -85,4 +84,5 @@ $this->headTitle($title);
             <?php echo $this->content ?>
         </div>
     </section>
+    <?php echo $this->aside; ?>
 </div>

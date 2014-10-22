@@ -54,7 +54,7 @@ $(function() {
     /******************************************************************************
      fancybox
      *******************************************************************************/
-        // Fires whenever a player has finished loading
+    // Fires whenever a player has finished loading
     function onPlayerReady(event) {
         event.target.playVideo();
     }
