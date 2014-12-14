@@ -14,7 +14,7 @@ html {
 body {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 16px;
-    background: #5760EE url("../img/misc/bg/bg.jpg") no-repeat;
+    background: #1754E2 url("../img/misc/bg/bg.jpg") no-repeat;
 }
 
 .background {
@@ -240,7 +240,7 @@ menu
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00328e', endColorstr='#74b5e1',GradientType=1 );*/
 }
 
-.main-nav li a:hover {
+.main-nav li a:hover, .main-nav li a:focus {
     color: rgba(20,40,169,0.8);
     background: rgb(252,203,0);
     background: -moz-radial-gradient(center, ellipse cover, rgba(252,203,0,1) 0%, rgba(255,205,0,1) 100%);

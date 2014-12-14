@@ -1,23 +1,37 @@
 $(function() {
     // bg
-    (function() {
-        var bg_img;
+    //(function() {
+    //    var bg_img;
+    //
+    //    switch (screen.width) {
+    //        case 1366:
+    //            bg_img = '/img/misc/bg/bg_1366_768.jpg';
+    //            break;
+    //        case 1280:
+    //            bg_img = '/img/misc/bg/bg_1280_720.jpg';
+    //            break;
+    //        default:
+    //            bg_img = '/img/misc/bg/bg.jpg';
+    //    }
+    //
+    //    $('body').css({
+    //        'background' : '#1756E1 url("'+ bg_img +'") no-repeat'
+    //    });
+    //})();
 
-        switch (screen.width) {
-            case 1366:
-                bg_img = '/img/misc/bg/bg_1366_768.jpg';
-                break;
-            case 1280:
-                bg_img = '/img/misc/bg/bg_1280_720.jpg';
-                break;
-            default:
-                bg_img = '/img/misc/bg/bg.jpg';
-        }
+    $('head').append('<link rel="stylesheet" href="/css/lightbox.min.css"><link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">');
 
-        $('body').css({
-            'background' : '#1756E1 url("'+ bg_img +'") no-repeat'
-        });
-    })();
+    /******************************************************************************
+     Page preloader
+     *******************************************************************************/
+    $('body').queryLoader2({
+        barColor:        "#efefef",
+        backgroundColor: "#1754E2",
+        percentage:      true,
+        barHeight:       1,
+        minimumTime:     100,
+        fadeOutTime:     500
+    });
 
     // Прикрепить меню
     $('.pinned').pin({

@@ -26,7 +26,6 @@
     </div>
     <!-- /ANK -->
     <!-- Docs -->
-    <link rel="stylesheet" href="/css/lightbox.min.css">
     <div class="block holder">
         <div class="background-gradient inner-block holder">
             <h3 class=" text-center">Образцы документов</h3>
@@ -35,7 +34,7 @@
         <div class="docs-content">
             <?php
             foreach ($this->imgs as $img) {
-                echo '<p><a href="' . $img . '" data-lightbox="imgs"><img class="img-responsive" src="' . $img . '" alt=""></a></p>';
+                echo '<p><a href="' . $img['origin'] . '" data-lightbox="imgs"><img class="img-responsive" src="' . $img['min'] . '" alt=""></a></p>';
             }
             ?>
         </div>
@@ -43,7 +42,6 @@
     <script src="/js/lightbox.min.js" async></script>
     <!-- /Docs -->
     <!-- Video -->
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
     <div class="block holder">
         <div class="background-gradient inner-block holder">
             <h3 class=" text-center">Видео</h3>

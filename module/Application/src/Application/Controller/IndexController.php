@@ -45,7 +45,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['home']);
 
         $checkedData = null;
-        $checkflag   = false;
+        $checkFlag   = false;
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -66,7 +66,7 @@ class IndexController extends AbstractActionController
                 $number = (int)$postData->number;
             }
 
-            $checkflag = true;
+            $checkFlag = true;
 
             $checkedData = $this->checkOrder($firstName, $lastName, $number);
         }
@@ -75,7 +75,7 @@ class IndexController extends AbstractActionController
             'flashMessages' => $this->flashMessenger()->getMessages(),
             'form'          => $form,
             'checkedData'   => $checkedData,
-            'checkflag'     => $checkflag,
+            'checkflag'     => $checkFlag,
             'content'       => html_entity_decode($content->getText())
         ));
         $viewModel->addChild($this->getAside(), 'aside');
@@ -217,8 +217,15 @@ class IndexController extends AbstractActionController
     {
         $imgs = array();
 
+        $count = 0;
         foreach (glob($this->imgFolder . '*') as $img) {
-            $imgs[] = substr($img, 8);
+            if (strpos($img, '.min') === false) {
+                $imgs[$count]['origin'] = substr($img, 8);
+            } else {
+                $imgs[$count]['min']    = substr($img, 8);
+
+                $count++;
+            }
         }
 
         return new ViewModel(array(
