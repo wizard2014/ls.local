@@ -193,4 +193,43 @@ $(function() {
     function autoClose() {
         setTimeout(function(){ removeMsg.trigger('click'); }, 8000);
     }
+
+    /******************************************************************************
+     check order
+     *******************************************************************************/
+    (function() {
+        var $submitBtn  = $('[type="submit"]'),
+            $place      = $('.checked-data');
+
+        $submitBtn.on('click', function(e){
+            e.preventDefault();
+
+            var name    = $('.name').val(),
+                number  = $('.number').val();
+
+            var data = {name: name, number: number};
+
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: data,
+                beforeSend: function(data) {
+                    $submitBtn.prop('disabled', true).val('Обработка...');
+                    $place.addClass('hide').find('tbody').empty();
+                },
+                success: function(data){
+                    $.each(data.result, function() {
+                        $place.find('tbody').append('<tr><td>' + $(this)[0] + '</td><td>' + $(this)[1] + '</td><td><a href="http://www.dosare.eu' + $(this)[3] + '" target="_blank">' + $(this)[2] + '</a></td></tr>');
+                    });
+                },
+                complete: function(data) {
+                    $submitBtn.prop('disabled', false).val('Отправить');
+                    $place.removeClass('hide');
+
+                    $('.name').val('');
+                    $('.number').val('');
+                }
+            });
+        });
+    })();
 });

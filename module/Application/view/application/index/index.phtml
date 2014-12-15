@@ -28,28 +28,20 @@ $this->headTitle($title);
                 echo $this->form()->closeTag();
                 ?>
             </div>
-            <?php if (!empty($this->checkedData)) : ?>
-                <div class="checked-data">
-                    <table class="table table-striped table-hover">
+            <!-- Check order form -->
+            <div class="checked-data hide">
+                <table class="table table-striped table-hover">
+                    <thead>
                         <tr>
                             <th>Фамилия Имя</th>
                             <th>№ досье/год</th>
                             <th>Приказ номер/год</th>
                         </tr>
-                        <tr>
-                        <?php foreach ($this->checkedData as $data) : ?>
-                            <td><?php echo $data[0]?></td>
-                            <td><?php echo $data[1]?></td>
-                            <td>
-                                <a href="http://www.dosare.eu<?php echo $data[3]?>" target="_blank"><?php echo $data[2]?></a>
-                            </td>
-                        </tr>
-                        <?php endforeach;?>
-                    </table>
-                </div>
-            <?php elseif ($this->checkflag) : ?>
-                <h4 class="text-center bg-danger">Извините, таких данных нет.</h4>
-            <?php endif; ?>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div><!-- /Check order form -->
         </div>
         <div id="slide-carousel" class="holder carousel slide hidden-sm hidden-xs" data-ride="carousel">
             <!-- Indicators -->

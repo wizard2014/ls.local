@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Zend\Form\Annotation\AnnotationBuilder;
 use Zend\Dom\Document;
 use Zend\Dom\Document\Query;
@@ -69,13 +70,17 @@ class IndexController extends AbstractActionController
             $checkFlag = true;
 
             $checkedData = $this->checkOrder($firstName, $lastName, $number);
+
+            return new JsonModel(array(
+                'result' => $checkedData
+            ));
         }
 
         $viewModel = new ViewModel(array(
             'flashMessages' => $this->flashMessenger()->getMessages(),
             'form'          => $form,
-            'checkedData'   => $checkedData,
-            'checkflag'     => $checkFlag,
+//            'checkedData'   => $checkedData,
+//            'checkflag'     => $checkFlag,
             'content'       => html_entity_decode($content->getText())
         ));
         $viewModel->addChild($this->getAside(), 'aside');
