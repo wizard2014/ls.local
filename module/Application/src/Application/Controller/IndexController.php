@@ -46,7 +46,6 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['home']);
 
         $checkedData = null;
-        $checkFlag   = false;
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -67,8 +66,6 @@ class IndexController extends AbstractActionController
                 $number = (int)$postData->number;
             }
 
-            $checkFlag = true;
-
             $checkedData = $this->checkOrder($firstName, $lastName, $number);
 
             return new JsonModel(array(
@@ -79,8 +76,6 @@ class IndexController extends AbstractActionController
         $viewModel = new ViewModel(array(
             'flashMessages' => $this->flashMessenger()->getMessages(),
             'form'          => $form,
-//            'checkedData'   => $checkedData,
-//            'checkflag'     => $checkFlag,
             'content'       => html_entity_decode($content->getText())
         ));
         $viewModel->addChild($this->getAside(), 'aside');
