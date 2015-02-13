@@ -60,14 +60,14 @@ a:focus {
     border-radius: 10px;
 }
 
-.inner-white-line {
-    height: 43px;
-    width: 3px;
-    position: absolute;
-    top: 0;
-    left: 1px;
-    background: rgb(226,249,255);
-}
+/*.inner-white-line {
+     height: 41px;
+     width: 2px;
+     position: absolute;
+     top: 2px;
+     left: 1px;
+     background: rgb(226,249,255);
+ }*/
 
 .background-gradient {
     background: rgb(226,249,255);

@@ -147,11 +147,21 @@ $(function() {
     $('.name')
         .on('keypress', function(e) {
             return (/^[a-zA-z ]+$/.test(String.fromCharCode(e.charCode)));
+        })
+        .on('keyup', function(e) {
+            if(e.keyCode == 13){
+                $('[type="submit"]').trigger('click');
+            }
         });
 
     $('.number')
         .on('keypress', function(e) {
             return !(/\D/.test(String.fromCharCode(e.charCode)));
+        })
+        .on('keyup', function(e) {
+            if(e.keyCode == 13){
+                $('[type="submit"]').trigger('click');
+            }
         });
 
     /******************************************************************************
@@ -198,10 +208,10 @@ $(function() {
      check order
      *******************************************************************************/
     (function() {
-        var $submitBtn  = $('[type="submit"]'),
+        var $submitBtn  = $('#check').find('[type="submit"]'),
             $place      = $('.checked-data');
 
-        $submitBtn.on('click', function(e){
+        $submitBtn.on('click', function(e) {
             e.preventDefault();
 
             var name    = $('.name').val(),
@@ -214,14 +224,16 @@ $(function() {
                     type: 'POST',
                     url: '/',
                     data: data,
-                    beforeSend: function(data) {
+                    beforeSend: function() {
                         $submitBtn.prop('disabled', true).val('Обработка...');
                         $place.addClass('hide').find('tbody').empty();
+
                         $('.informer').remove();
-                    },
-                    success: function(data){
+                    }
+                })
+                    .done(function(data) {
                         if (data.result.length > 0) {
-                            $.each(data.result, function () {
+                            $.each(data.result, function (index, value) {
                                 $place.find('tbody').append('<tr><td>' + $(this)[0] + '</td><td>' + $(this)[1] + '</td><td><a href="http://www.dosare.eu' + $(this)[3] + '" target="_blank">' + $(this)[2] + '</a></td></tr>');
                             });
 
@@ -229,18 +241,20 @@ $(function() {
                         } else {
                             $('#check').after('<h4 class="text-center informer">Таких данных нет.</h4>');
                         }
-                    },
-                    complete: function(data) {
+                    })
+                    .fail(function() {
+                        if ($('.informer').length < 1) {
+                            $('#check').after('<h4 class="text-center informer">Произошла ошибка! Пожалуйста, повторите попытку позже.</h4>');
+                        }
+                    })
+                    .always(function() {
                         $submitBtn.prop('disabled', false).val('Отправить');
 
                         $('.name').val('');
                         $('.number').val('');
-                    }
-                });
+                    });
             } else {
-                var noData = $('.informer');
-
-                if (noData.length < 1) {
+                if ($('.informer').length < 1) {
                     $('#check').after('<h4 class="text-center informer">Заполните хотя бы одно поле.</h4>');
                 }
             }

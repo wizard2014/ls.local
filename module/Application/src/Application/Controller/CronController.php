@@ -36,16 +36,16 @@ class CronController extends AbstractActionController
 
         // Получить контент с сайта
         $client = new Client();
-        $client->setUri('http://cetatenie.just.ro/ordine/articol-11/');
+        $client->setUri('http://cetatenie.just.ro/index.php/ro/ordine/articol-11/');
         $client->setOptions(array(
             'maxredirects' => 0
         ));
         $response = $client->send();
 
         // Разобрать узлы
-        $html     = $response->getContent();
+        $html     = $response->getBody();
         $document = new Document($html);
-        $nodeList = Query::execute('.entry-content ul li strong, .entry-content ul li a', $document, Query::TYPE_CSS);
+        $nodeList = Query::execute('.item-page ul li strong, .item-page ul li a', $document, Query::TYPE_CSS);
 
         $tmpArr = array();
 
@@ -90,7 +90,7 @@ class CronController extends AbstractActionController
         $currentOrders = $this->getCurrentOrder();
 
         foreach ($data as $item) {
-            if (!isset($currentOrders[$item['title']])) {
+            if (!isset($currentOrders[$item['link']])) {
                 $order = new LinkToOrder();
                 $order->populate($item);
 
@@ -112,7 +112,7 @@ class CronController extends AbstractActionController
             ->getRepository(self::LINK_TO_ORDER_ENTITY)->findAll();
 
         foreach ($currentOrders as $order) {
-            $ordersArr[$order->getTitle()] = true;
+            $ordersArr[$order->getLink()] = true;
         }
 
         return $ordersArr;
