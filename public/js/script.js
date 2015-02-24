@@ -214,8 +214,16 @@ $(function() {
         $submitBtn.on('click', function(e) {
             e.preventDefault();
 
-            var name    = $('.name').val(),
-                number  = $('.number').val();
+            var name    = $.trim($('.name').val()),
+                number  = $.trim($('.number').val());
+
+            if (name.length > 0 && !/\s/.test(name)) {
+                $('.informer').remove();
+
+                $('#check').after('<h4 class="text-center informer">Укажите "Имя" и "Фамилию".</h4>');
+
+                return;
+            }
 
             var data = {name: name, number: number};
 
@@ -233,8 +241,8 @@ $(function() {
                 })
                     .done(function(data) {
                         if (data.result.length > 0) {
-                            $.each(data.result, function (index, value) {
-                                $place.find('tbody').append('<tr><td>' + $(this)[0] + '</td><td>' + $(this)[1] + '</td><td><a href="http://www.dosare.eu' + $(this)[3] + '" target="_blank">' + $(this)[2] + '</a></td></tr>');
+                            $.each(data.result, function() {
+                                $place.find('tbody').append('<tr><td>' + $(this)[0].ucwords() + ' ' + $(this)[1].ucwords() + '</td><td>' + $(this)[2] + '</td><td><a href="http://cetatenie-primesc.eu/' + $(this)[4] + '" target="_blank">' + $(this)[3] + '</a></td><td>' + $(this)[5] + '</td></tr>');
                             });
 
                             $place.removeClass('hide');
@@ -260,4 +268,12 @@ $(function() {
             }
         });
     })();
+
+    String.prototype.ucwords = function() {
+        var str = this.toLowerCase();
+
+        return str.replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function($1) {
+            return $1.toUpperCase();
+        });
+    };
 });

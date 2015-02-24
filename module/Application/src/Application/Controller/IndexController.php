@@ -45,28 +45,11 @@ class IndexController extends AbstractActionController
 
         $content = $this->getContent($this->page['home']);
 
-        $checkedData = null;
-
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $firstName  = null;
-            $lastName   = null;
-            $number     = null;
-
             $postData = $request->getPost();
 
-            if (isset($postData->name)) {
-                $explode = explode(' ', $postData->name);
-
-                $firstName  = $explode[0];
-                $lastName   = $explode[1];
-            }
-
-            if (isset($postData->number)) {
-                $number = (int)$postData->number;
-            }
-
-            $checkedData = $this->checkOrder($firstName, $lastName, $number);
+            $checkedData = $this->checkOrder($postData->name, $postData->number);
 
             return new JsonModel(array(
                 'result' => $checkedData
@@ -307,49 +290,69 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * @param $firstName
-     * @param $lastName
+     * @param $name
      * @param $number
+     *
      * @return array
      */
-    protected function checkOrder($firstName, $lastName, $number)
+    protected function checkOrder($name, $number)
     {
-        $param1 = !empty($firstName) ? $firstName . '/' : null;
-        $param2 = !empty($lastName)  ? $lastName  . '/' : null;
-        $param3 = !empty($number)    ? $number          : null;
+        $uri = 'http://cetatenie-primesc.eu/rezultatele-cautarii';
+
+        $postParams = array(
+            'mact'                      => 'OrdineANC,ordanc01,dosearchorder,0',
+            'ordanc01searchnameinput'   => $name,
+            'ordanc01searchnbinput'     => $number
+        );
 
         // Получить контент с сайта
         $client = new Client();
-        $client->setUri('http://www.dosare.eu/search/' . $param1 . $param2 . $param3);
+        $client->setUri($uri);
+        $client->setMethod('POST');
+        $client->setParameterPost($postParams);
         $client->setOptions(array(
             'maxredirects' => 0
         ));
         $response = $client->send();
 
+        $css = '.search-order-result table tr td';
+
         // Разобрать узлы
         $html      = $response->getBody();
         $document  = new Document($html);
-        $nodeList  = Query::execute('.searchContainer .table tr td, .searchContainer .table tr td a', $document, Query::TYPE_CSS);
+        $nodeList  = Query::execute($css . ', ' . $css . ' a',       $document, Query::TYPE_CSS);
+
+        $search  = array('din', '-');
+        $replace = array('/', '.');
 
         $resArray = array();
 
-        $count = 0;
         foreach ($nodeList as $node) {
-            $href      = trim($node->getAttribute('href'));
-            $nodeValue = trim(str_replace('&nbsp;', '', htmlentities($node->nodeValue))); // убрать &nbsp;
-
-            if (empty($nodeValue)) { continue; }
+            $href = trim($node->getAttribute('href'));
 
             if (!empty($href)) {
-                $resArray[count($resArray) - 1][] = $href;
-
-                $count++;
+                $nodeValue = $this->encodeURIComponent($href);
             } else {
-                $resArray[$count][] = str_replace('Ordin', '', $nodeValue);
+                $nodeValue = preg_replace('/(nr.|ordin|or|_)/i', '', htmlentities($node->nodeValue));
+                $nodeValue = trim(str_replace($search, $replace, $nodeValue));
             }
+
+            $resArray[] = $nodeValue;
         }
 
-        return $resArray;
+        return array_chunk($resArray, 6);
+    }
+
+    /**
+     * @param $str
+     *
+     * @return string
+     */
+    protected function encodeURIComponent($str)
+    {
+        $revert = array('%21' => '!', '%2A' => '*', '%27' => "'", '%28' => '(', '%29' => ')', '%2F' => '/');
+
+        return strtr(rawurlencode($str), $revert);
     }
 
     /**
