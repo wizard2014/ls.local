@@ -15,18 +15,13 @@
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/misc/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/style.min.css')
-                        ->prependStylesheet($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') ?>
+                        ->prependStylesheet($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css') ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/script.min.js')
-            ->prependFile($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js')
             ->prependFile($this->basePath() . '/js/queryloader2.min.js')
-            ->prependFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
         ; ?>
-
     </head>
     <body>
         <?php if ($this->userRole === 'admin') : ?>
@@ -79,6 +74,16 @@
             </div>
             <a id="back-to-top" href="#" class="back-to-top" role="button"><span class="glyphicon glyphicon-chevron-up"></span></a>
         </div> <!-- /container -->
-        <script src="/js/jquery.pin.min.js"></script>
+        <?php
+        $script =  $this->inlineScript();
+        $script
+            ->appendFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . 'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+            ->appendFile($this->basePath() . '/js/jquery.pin.min.js')
+            ->appendFile($this->basePath() . '/js/script.min.js');
+
+        echo $script;
+        ?>
     </body>
 </html>

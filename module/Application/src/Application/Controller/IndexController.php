@@ -320,7 +320,7 @@ class IndexController extends AbstractActionController
         // Разобрать узлы
         $html      = $response->getBody();
         $document  = new Document($html);
-        $nodeList  = Query::execute($css . ', ' . $css . ' a',       $document, Query::TYPE_CSS);
+        $nodeList  = Query::execute($css . ', ' . $css . ' a', $document, Query::TYPE_CSS);
 
         $search  = array('din', '-');
         $replace = array('/', '.');
@@ -333,7 +333,7 @@ class IndexController extends AbstractActionController
             if (!empty($href)) {
                 $nodeValue = $this->encodeURIComponent($href);
             } else {
-                $nodeValue = preg_replace('/(nr.|ordin|or|_)/i', '', htmlentities($node->nodeValue));
+                $nodeValue = preg_replace('/(nr\.|ordin|or\.|_)/i', '', $node->nodeValue);
                 $nodeValue = trim(str_replace($search, $replace, $nodeValue));
             }
 

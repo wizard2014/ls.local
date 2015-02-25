@@ -242,7 +242,7 @@ $(function() {
                     .done(function(data) {
                         if (data.result.length > 0) {
                             $.each(data.result, function() {
-                                $place.find('tbody').append('<tr><td>' + $(this)[0].ucwords() + ' ' + $(this)[1].ucwords() + '</td><td>' + $(this)[2] + '</td><td><a href="http://cetatenie-primesc.eu/' + $(this)[4] + '" target="_blank">' + $(this)[3] + '</a></td><td>' + $(this)[5] + '</td></tr>');
+                                $place.find('tbody').append('<tr><td>' + $(this)[0] + ' ' + $(this)[1] + '</td><td>' + $(this)[2] + '</td><td><a href="http://cetatenie-primesc.eu/' + $(this)[4] + '" target="_blank">' + $(this)[3] + '</a></td><td>' + $(this)[5] + '</td></tr>');
                             });
 
                             $place.removeClass('hide');
@@ -268,12 +268,4 @@ $(function() {
             }
         });
     })();
-
-    String.prototype.ucwords = function() {
-        var str = this.toLowerCase();
-
-        return str.replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function($1) {
-            return $1.toUpperCase();
-        });
-    };
 });
