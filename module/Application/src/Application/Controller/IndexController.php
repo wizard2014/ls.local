@@ -46,7 +46,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['home']);
 
         $request = $this->getRequest();
-        if ($request->isPost()) {
+        if ($request->isXmlHttpRequest()) {
             $postData = $request->getPost();
 
             $checkedData = $this->checkOrder($postData->name, $postData->number);
@@ -59,7 +59,7 @@ class IndexController extends AbstractActionController
         $viewModel = new ViewModel(array(
             'flashMessages' => $this->flashMessenger()->getMessages(),
             'form'          => $form,
-            'content'       => html_entity_decode($content->getText())
+            'content'       => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -74,7 +74,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['about-us']);
 
         $viewModel = new ViewModel(array(
-            'content' => html_entity_decode($content->getText())
+            'content' => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -89,7 +89,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['paperwork']);
 
         $viewModel = new ViewModel(array(
-            'content' => html_entity_decode($content->getText())
+            'content' => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -104,7 +104,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['about-romania']);
 
         $viewModel = new ViewModel(array(
-            'content' => html_entity_decode($content->getText())
+            'content' => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -119,7 +119,7 @@ class IndexController extends AbstractActionController
         $content = $this->getContent($this->page['attention']);
 
         $viewModel = new ViewModel(array(
-            'content' => html_entity_decode($content->getText())
+            'content' => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -145,7 +145,7 @@ class IndexController extends AbstractActionController
 
                 $mail->setBody($postData->text)
                      ->setFrom('legalservice@mail.com', 'From Site')
-                     ->addTo('Dmitrij.Brazhnyk@yandex.by', 'Dmitrij Brazhnyk')
+                     ->addTo('Dmitrij.Brazhnyk@yandex.ru', 'Dmitrij Brazhnyk')
                      ->setSubject($postData->subject);
 
                 try {
@@ -171,7 +171,7 @@ class IndexController extends AbstractActionController
 
         $viewModel = new ViewModel(array(
             'form'    => $form,
-            'content' => html_entity_decode($content->getText())
+            'content' => $content->getText()
         ));
         $viewModel->addChild($this->getAside(), 'aside');
 
@@ -186,7 +186,7 @@ class IndexController extends AbstractActionController
 //        $content = $this->getContent($this->page['reviews']);
 //
 //        $viewModel = new ViewModel(array(
-//            'content' => html_entity_decode($content->getText())
+//            'content' => $content->getText()
 //        ));
 //        $viewModel->addChild($this->getAside(), 'aside');
 //
