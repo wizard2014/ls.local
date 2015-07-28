@@ -1,7 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wizard
- * Date: 28.07.2015
- * Time: 13:18
- */
+
+namespace Application\Factory\Controller;
+
+use Application\Controller\CronController;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
+class CronControllerFactory implements FactoryInterface
+{
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return CronController
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $controller = new CronController();
+
+        $cache = $serviceLocator->getServiceLocator()->get('filesystem');
+        $controller->setCache($cache);
+
+        return $controller;
+    }
+}

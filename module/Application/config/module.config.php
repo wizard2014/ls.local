@@ -149,40 +149,8 @@ return array(
             'Application\Controller\Edit'   => 'Application\Controller\EditController'
         ),
         'factories' => array(
-            'Application\Controller\Index' => function($sm) {
-                    $controller = new Application\Controller\IndexController();
-
-                    $serviceManager = $sm->getServiceLocator();
-
-                    $em    = $serviceManager->get('Doctrine\ORM\EntityManager');
-                    $cache = $serviceManager->get('filesystem');
-
-                    if (!$cache->hasItem('doc')) {
-                        $doc = $em->getRepository('Application\Entity\LinkToOrder')->findAll();
-
-                        $cache->setItem('doc', serialize(array_reverse($doc)));
-                    }
-
-                    if (!$cache->hasItem('vid')) {
-                        $vid = $em->getRepository('Application\Entity\YoutubeVideo')->findAll();
-
-                        $cache->setItem('vid', serialize(array_reverse($vid)));
-                    }
-
-                    $controller->setCache($serviceManager->get('memory'));
-                    $controller->setDoc(unserialize($cache->getItem('doc')));
-                    $controller->setVideo(unserialize($cache->getItem('vid')));
-
-                    return $controller;
-                },
-            'Application\Controller\Cron' => function($sm) {
-                    $controller = new Application\Controller\CronController();
-
-                    $cache = $sm->getServiceLocator()->get('filesystem');
-                    $controller->setCache($cache);
-
-                    return $controller;
-                },
+            'Application\Controller\Index' => 'Application\Factory\Controller\IndexControllerFactory',
+            'Application\Controller\Cron'  => 'Application\Factory\Controller\CronControllerFactory',
         ),
     ),
     'view_manager' => array(
