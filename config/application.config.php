@@ -7,7 +7,6 @@
  */
 return array(
     'modules' => array(
-        'Application',
         'ZFTool',
         'DoctrineModule',
         'DoctrineORMModule',
@@ -16,6 +15,7 @@ return array(
         'ZfcUser',
         'ZfcUserDoctrineORM',
         'BjyAuthorize',
+        'Application',
 //        'EdpSuperluminal',
         'User'
     ),
