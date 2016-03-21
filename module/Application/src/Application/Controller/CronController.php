@@ -42,22 +42,34 @@ class CronController extends AbstractActionController
         ));
         $response = $client->send();
 
-        // Разобрать узлы
+        // parse nodes
         $html     = $response->getBody();
         $document = new Document($html);
         $nodeList = Query::execute('.item-page ul li strong, .item-page ul li a', $document, Query::TYPE_CSS);
 
-        $tmpArr = array();
+        $tmpArr  = array();
+        $tmpDate = null;
 
         $count = 0;
         foreach ($nodeList as $node) {
             $href      = trim($node->getAttribute('href'));
-            $nodeValue = trim(str_replace('&nbsp;', '', htmlentities($node->nodeValue))); // убрать &nbsp;
+            $nodeValue = trim(str_replace('&nbsp;', '', htmlentities($node->nodeValue))); // remove &nbsp;
 
             if (empty($nodeValue)) { continue; }
 
             if (empty($href)) {
-                $tmpArr[$count]['date']  = new \DateTime($nodeValue);
+                try {
+                    $tmpArr[$count]['date']  = new \DateTime($nodeValue);
+                } catch (\Exception $e) {
+                    if (!is_null($tmpDate)) {
+                        $nodeValue = $tmpDate . $nodeValue;
+                        $tmpArr[$count]['date']  = new \DateTime($nodeValue);
+
+                        $tmpDate = null;
+                    } else {
+                        $tmpDate = $nodeValue;
+                    }
+                }
 
                 $this->cache->setItem('date', $nodeValue);
             } else {
@@ -69,7 +81,7 @@ class CronController extends AbstractActionController
 
             $lastItemInArray = &$tmpArr[count($tmpArr) - 1];
 
-            // Добавить дату, если нет
+            // add date, if not exists
             if (!isset($lastItemInArray['date'])) {
                 $lastItemInArray['date'] = new \DateTime($this->cache->getItem('date'));
             }

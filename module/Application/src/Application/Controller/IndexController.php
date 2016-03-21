@@ -305,7 +305,7 @@ class IndexController extends AbstractActionController
             'ordanc01searchnbinput'     => $number
         );
 
-        // Получить контент с сайта
+        // get content from remote site
         $client = new Client();
         $client->setUri($uri);
         $client->setMethod('POST');
@@ -317,7 +317,7 @@ class IndexController extends AbstractActionController
 
         $css = '.search-order-result table tr td';
 
-        // Разобрать узлы
+        // parse nodes
         $html      = $response->getBody();
         $document  = new Document($html);
         $nodeList  = Query::execute($css . ', ' . $css . ' a', $document, Query::TYPE_CSS);

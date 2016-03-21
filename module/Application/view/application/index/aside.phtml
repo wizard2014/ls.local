@@ -11,9 +11,11 @@
             $limit = 10;
 
             for ($i = 0; $i < $limit; $i++) {
-                echo '<li><h4 class="text-center"><small>' .  $this->docs[$i]->getDate()->format('d.m.Y')
-                    . ' </small> - <a href="http://cetatenie.just.ro'. $this->docs[$i]->getLink()
-                    .'" target="_blank">Приказ ' . $this->docs[$i]->getTitle() . '</a></h4></li>';
+                if (!is_null($this->docs[$i])) {
+                    echo '<li><h4 class="text-center"><small>' .  $this->docs[$i]->getDate()->format('d.m.Y')
+                         . ' </small> - <a href="http://cetatenie.just.ro'. $this->docs[$i]->getLink()
+                         .'" target="_blank">Приказ ' . $this->docs[$i]->getTitle() . '</a></h4></li>';
+                }
             }
             ?>
             </ul>
